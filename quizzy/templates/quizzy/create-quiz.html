@@ -1,0 +1,56 @@
+{% extends 'quizzy/layout.html' %}
+{% load static %}
+
+{% block title %} Create Quiz {% endblock %}
+
+{% block script %}
+  <script src="{% static 'quizzy/create-quiz.js' %}" defer></script>
+{% endblock %}
+
+{% block body %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Create a new quiz</h1>
+    <button type="submit" class="btn btn-primary" form="quizForm">Submit</button>
+  </div>
+
+  <form id="quizForm" action="#">
+    <!-- Quiz name -->
+    <div class="mb-3">
+      <label for="quizNameInput" class="form-label">Quiz name:</label>
+      <input type="text" name="quizName" class="form-control form-control-lg" required id="quizNameInput" placeholder="Type in the name of your quiz">
+    </div>
+
+    <!-- Quiz visibility -->
+    <div class="mb-3">
+      <span class="me-1">Visibility:</span>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="visibilityRadio form-check-input" name="visibility" value="public" id="visibilityRadio1" checked>
+        <label for="visibilityRadio1" class="form-check-label">
+          Public
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="visibilityRadio form-check-input" name="visibility" value="private" id="visibilityRadio2">
+        <label for="visibilityRadio2" class="form-check-label">
+          Private
+        </label>
+      </div>
+    </div>
+
+    <div id="questionsDiv"></div>
+  </form>
+
+  <!-- Add question form -->
+  <form action="#" id="addQuestionForm">
+    <h3>Add a new question</h3>
+
+    <select class="form-select mb-3" aria-label="New question type" id="questionTypeSelect" required>
+      <option value="" selected>Choose a question type</option>
+      <option value="prompt">Prompt</option>
+      <option value="multiple_choice">Multiple choice</option>
+      <option value="multiple_select">Multiple select</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+{% endblock %}

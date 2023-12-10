@@ -1,0 +1,103 @@
+{% extends 'quizzy/layout.html' %}
+{% load static %}
+
+{% block title %} {{ quiz.title }} {% endblock %} 
+
+{% block script %}
+  <script src="{% static 'quizzy/quiz.js' %}" defer></script>
+{% endblock %}
+
+{% block body %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>{{ quiz.title }}</h1>
+    <button type="submit" class="btn btn-primary" form="quizForm">Submit</button>
+  </div>
+
+  <span class="fs-5 text-secondary">
+    {{ quiz.visibility.capitalize }}
+  </span>
+
+  <br />
+  
+  <span class="fs-5">
+    by {{ quiz.author }}
+  </span>
+
+  <br />
+
+  {% with user.is_authenticated as is_authenticated %}
+    {% with quiz.id as id %}
+      <span class="interactive" data-interactive-type="likes" data-interactive-link="{% url 'like-quiz' id %}">
+        <a href="#" class="likeButton {% if not is_authenticated %}inactiveLink{% endif %}">
+          {% if user in quiz.likes.all %}
+            <i class="bi bi-hand-thumbs-up-fill" style="font-size: 25px"></i>
+          {% else %}
+            <i class="bi bi-hand-thumbs-up" style="font-size: 25px"></i>
+          {% endif %}
+        </a>
+        
+        <span class="me-2">{{ quiz.likes.count }}</span>
+      </span>
+      <span class="interactive" data-interactive-type="favourites" data-interactive-link="{% url 'favourite-quiz' id %}">
+        <a href="#" class="favouriteButton {% if not is_authenticated %}inactiveLink{% endif %}">
+          {% if user in quiz.favourites.all %}
+            <i class="bi bi-star-fill" style="font-size: 25px"></i>
+          {% else %}
+            <i class="bi bi-star" style="font-size: 25px"></i>
+          {% endif %}
+        </a>
+
+        <span>{{ quiz.favourites.count }}</span>
+      </span>
+    {% endwith %}
+  {% endwith %}
+
+  <br />
+
+  {% if user == quiz.author %}
+    <a href="{% url 'delete-quiz' quiz.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+  {% endif %}
+
+  <form action="#" id="quizForm" class="my-3" method="POST" data-quiz-id="{{ quiz.id }}">
+    {% csrf_token %}
+
+    {% for question in quiz.questions.all %}
+      {% with question.id as id %}
+        {% with question.type as type %}
+          <div class="quizQuestion border rounded p-3 my-2" data-question-id="{{ id }}" data-question-type="{{ type }}">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <h3>{{ question.question }}</h3>
+              <span class="feedback"></span>
+            </div>
+            
+
+            <div>
+              {% if type == "prompt" %}
+                <input type="text" class="answer form-control" id="answer{{ id }}" name="{{ id }}" placeholder="Type in your answer" required>
+              {% elif type == "multiple_choice" %}
+                {% for option in question.options %}
+                  <div class="form-check form-check-inline">
+                    <input type="radio" class="option form-check-input" name="{{ id }}" id="answer{{ id }}Option{{ forloop.counter }}" value="{{ option }}">
+                    <label for="answer{{ id }}Option{{ forloop.counter }}" class="form-check-label">
+                      {{ option }}
+                    </label>
+                  </div>
+                {% endfor %}
+              {% elif type == "multiple_select" %}
+                {% for option in question.options %}
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" class="option form-check-input" name="{{ id }}" id="answer{{ id }}Option{{ forloop.counter }}" value="{{ option }}">
+                    <label for="answer{{ id }}Option{{ forloop.counter }}" class="form-check-label">
+                      {{ option }}
+                    </label>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        {% endwith %}
+      {% endwith %}
+    {% endfor %}
+  </form>
+{% endblock %}

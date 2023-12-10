@@ -1,0 +1,45 @@
+{% extends 'quizzy/layout.html' %}
+{% load static %}
+
+{% block title %} {% block layout_title %}{% endblock %} {% endblock %} 
+
+{% block body %}
+  <h1>{% block heading %}{% endblock %}</h1>
+
+  {% for quiz in quizzes %}
+    <div class="border rounded p-3 my-2">
+      <a href="{% url 'quiz' quiz.id %}" class="quizName"><h3>{{ quiz.title }}</h3></a>
+
+      by {{ quiz.author }}
+
+      <br />
+
+      {% with user.is_authenticated as is_authenticated %}
+        {% with quiz.id as id %}
+          <span class="interactive" data-interactive-type="likes" data-interactive-link="{% url 'like-quiz' id %}">
+            <a href="#" class="likeButton {% if not is_authenticated %}inactiveLink{% endif %}">
+              {% if user in quiz.likes.all %}
+                <i class="bi bi-hand-thumbs-up-fill" style="font-size: 25px"></i>
+              {% else %}
+                <i class="bi bi-hand-thumbs-up" style="font-size: 25px"></i>
+              {% endif %}
+            </a>
+            
+            <span class="me-2">{{ quiz.likes.count }}</span>
+          </span>
+          <span class="interactive" data-interactive-type="favourites" data-interactive-link="{% url 'favourite-quiz' id %}">
+            <a href="#" class="favouriteButton {% if not is_authenticated %}inactiveLink{% endif %}">
+              {% if user in quiz.favourites.all %}
+                <i class="bi bi-star-fill" style="font-size: 25px"></i>
+              {% else %}
+                <i class="bi bi-star" style="font-size: 25px"></i>
+              {% endif %}
+            </a>
+
+            <span>{{ quiz.favourites.count }}</span>
+          </span>
+        {% endwith %}
+      {% endwith %}
+    </div>
+  {% endfor %}
+{% endblock %}
