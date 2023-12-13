@@ -1,13 +1,13 @@
 # Quizzy
 
-This is my entry for the final project (capstone) of the CS50W course. Hope you enjoy! ✨
+#### This is my entry for the final project (capstone) of the CS50W course 💻. 
 
-![alt A screenshot of Quizzy on a desktop](/quizzy/static/quizzy/quizzy-screenshot.png)
+#### Quizzy is a web application that allows you and your friends to make and use interactive quizzes. Have fun goofing around or studying! ✨
 
+---
 <br>
-<br>
 
-# Installation
+## Installation
 
 You must have [python](https://www.python.org/) installed to run this application.
 
@@ -35,10 +35,10 @@ To run the application, you first need to apply the migrations:
 python3 manage.py migrate
 ```
 
-<br>
+---
 <br>
 
-# Usage
+## Usage
 
 Run the server:
 
@@ -47,8 +47,6 @@ python3 manage.py runserver
 ```
 
 ---
-
-<br>
 <br>
 
 # Distinctiveness and Complexity
@@ -59,12 +57,12 @@ I started working on this project by making the create quiz form, which allows u
 
 My website utilises several Django models to keep track of different quizzes, questions and users. It also uses Javascript to allow for the seamless usage of like and favourite buttons. The Javascript also plays a crucial role in submitting the forms that allow the users to create their own quizzes.
 
+My website is also mobile responsive due to the usage of Bootstrap, an amazing CSS/JS library. This has allowed me to introduce responsiveness to all the HTML elements such as the navbar and create quiz form. As a result of the usage of Bootstrap, elements in my website also size and position in a way that they adjust to the width and height of the user's screen.
+
 <figure>
     <img src="./quizzy/static/quizzy/quizzy-screenshot.png" alt="A screenshot of Quizzy on a desktop" width="800">
     <figcaption>Quizzy on a desktop</figcaption>
 </figure>
-
-My website is also mobile responsive due to the usage of Bootstrap, an amazing CSS/JS library. This has allowed me to introduce responsiveness to all the HTML elements such as the navbar and create quiz form. As a result of the usage of Bootstrap, elements in my website also size and position in a way that they adjust to the width and height of the user's screen.
 
 <figure>
     <img src="./quizzy/static/quizzy/quizzy-screenshot-mobile.png" alt="A screenshot of Quizzy on a mobile device" height="600">
@@ -72,8 +70,6 @@ My website is also mobile responsive due to the usage of Bootstrap, an amazing C
 </figure>
 
 ---
-
-<br>
 <br>
 
 # File structure description
