@@ -2,6 +2,8 @@
 
 #### This is my entry for the final project (capstone) of the CS50W course 💻. 
 
+#### !! Not continuing work on this project (for now) !!
+
 #### Quizzy is a web application that allows you and your friends to make and use interactive quizzes. Have fun goofing around or studying! ✨
 
 ---
