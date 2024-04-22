@@ -16,7 +16,7 @@ You must have [python](https://www.python.org/) installed to run this applicatio
 Firstly, clone the repository (alternatively you can download and extract the repo):
 
 ```
-git clone https://github.com/Aritra587/quizzy.git
+git clone https://github.com/aritra-codes/quizzy.git
 ```
 
 Then, change directories into the newly cloned repository:
